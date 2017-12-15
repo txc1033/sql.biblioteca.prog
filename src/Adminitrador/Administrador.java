@@ -30,7 +30,8 @@ public class Administrador {
     // imprimimos un mensaje alertando del error
     public DefaultTableModel listaL(){ //metodo para llenar la tabla libro que se mostrara en el jpanel libros
     try{ // realizamos un try-catch para controlar los errores
-           s = cn.createStatement();  // primero almacenamos en la variable s el metodo createStatement de la variable cn
+            cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
+            s = cn.createStatement();  // primero almacenamos en la variable s el metodo createStatement de la variable cn
            SQL = "select * from LIBROS WHERE id>0"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
            rs = s.executeQuery(SQL); // y ejecutamos el metodo executeUpdate + sentencia sql 
            rsmd=rs.getMetaData(); // almacenamos el resultado en la variable rsmd
@@ -46,7 +47,7 @@ public class Administrador {
           modeloL.addRow(fila);}} // ademas iremos agregando las filas con el metodo addRow
     catch(SQLException e){JOptionPane.showMessageDialog(null, e.getMessage());} // instanciamos una exception en caso de ocurrir un error que sera mostrad
     // por una ventana emergente
-    return modeloL;}// y retornamos el objeto modeloL
+    return modeloL;}// y retornamos el objeto modeloL// y retornamos el objeto modeloL
     public void AgregarConsultaL(int id,String nombre,String autor){
         try
         {
