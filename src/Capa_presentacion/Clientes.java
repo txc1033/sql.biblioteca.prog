@@ -70,6 +70,7 @@ public class Clientes extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         btn_agregar.setText("AGREGAR");
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {

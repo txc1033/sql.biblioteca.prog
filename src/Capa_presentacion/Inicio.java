@@ -20,6 +20,7 @@ public class Inicio extends javax.swing.JFrame {
         btn_db_clientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jinicio.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jinicio.setText("Bienvenido a la biblioteca");
