@@ -1,113 +1,75 @@
 /* Autor @Javifast */
 package Capa_presentacion;
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 import Adminitrador.Administrador;
 
 public class Clientes extends javax.swing.JFrame {
-
-    static Connection cn;
-    static Statement s;
-    static ResultSet rs;
+ String nombre, apellido, rut, edad;
+    int id;
+    Administrador admin = new Administrador();
   
     public Clientes() {
         this.setLocationRelativeTo(null);
         initComponents();
-        DatosTabla1();
+        DatosTabla();
     }
 //metodo para MOSTRAR DATOS EN LA TABLAS
-    public void DatosTabla1(){
-    Administrador oper = new Administrador();
-    DefaultTableModel model1 =new DefaultTableModel();
-    model1 = oper.lista1();
-    jtable_clientes.setModel(model1);
+    public void DatosTabla(){
+    DefaultTableModel modelC;
+    Administrador oper = new Administrador();    
+    modelC = oper.listaC();
+    jtable_clientes.setModel(modelC);
     }
-    //metodo para AGREGAR DATOS
-    public void Agregar1(){
-      int id = Integer.parseInt(jtxt_id.getText());
-        String nombre = jtxt_nombre.getText();
-        String apellido = jtxt_apellido.getText();
-        String rut = jtxt_rut.getText();
-        String edad = jtxt_edad.getText();
-    Administrador admin = new Administrador();
-    admin.AgregarConsulta1(id,nombre,apellido,rut,edad);
+    //metodo para agregar datos
+    public void Agregar(){
+        id = Integer.parseInt(jtxt_id.getText());
+        nombre = jtxt_nombre.getText();
+        apellido = jtxt_apellido.getText();
+        rut = jtxt_rut.getText();
+        edad = jtxt_edad.getText();
+        admin.AgregarConsultaC(id,nombre,apellido,rut,edad);
+        DatosTabla();
     }
     //metodo para eliminar datos
-    public void Eliminar1(){
-    Administrador oper = new Administrador();
-    oper.EliminarConsulta1(jtxt_id.getText());
+    public void Eliminar(){
+    id = Integer.parseInt(jtxt_id.getText());
+    admin.EliminarConsultaC(id);
+    DatosTabla();
     }
     //metodo para modificar datos
-    public void Modificar1(){
-     try
-        {
-            Class.forName("org.sqlite.JDBC");
-            cn = DriverManager.getConnection("jdbc:sqlite:biblioteca.sqlite");
-            cn.setAutoCommit(false);
-            s = cn.createStatement();
-            
-         String SQL = "UPDATE clientes SET nombre='"+jtxt_nombre.getText()+"',apellido='"+jtxt_apellido.getText()+"',rut='"+jtxt_rut.getText()+"',edad='"+jtxt_edad.getText()+"' WHERE id='"+jtxt_id.getText()+"';";
-            s.executeUpdate(SQL);
-            s.close();
-            cn.commit();
-            cn.close();
-        JOptionPane.showMessageDialog(null, "MODIFICADO");
-        }catch(Exception e){JOptionPane.showMessageDialog(null, "Dato repetido o invalido");}
+    public void Modificar(){
+        id = Integer.parseInt(jtxt_id.getText());
+        nombre = jtxt_nombre.getText();
+        apellido = jtxt_apellido.getText();
+        rut = jtxt_rut.getText();
+        edad = jtxt_edad.getText();
+        admin.ModificarConsultaC(id, nombre, apellido, rut, edad);
+        DatosTabla();
     }
-
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtable_clientes = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jtxt_id = new javax.swing.JTextField();
-        jtxt_nombre = new javax.swing.JTextField();
-        jtxt_apellido = new javax.swing.JTextField();
         btn_agregar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         btn_actualizar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        btn_regresar = new javax.swing.JButton();
+        jtxt_id = new javax.swing.JTextField();
+        jtxt_nombre = new javax.swing.JTextField();
+        jtxt_apellido = new javax.swing.JTextField();
         jtxt_rut = new javax.swing.JTextField();
         jtxt_edad = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtable_clientes = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jtable_clientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jtable_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtable_clientesMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jtable_clientes);
-
-        jLabel1.setText("ID:");
-
-        jLabel2.setText("NOMBRE:");
-
-        jLabel3.setText("APELLIDO:");
 
         btn_agregar.setText("AGREGAR");
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -137,22 +99,46 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
 
+        btn_regresar.setText("REGRESAR");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
+            }
+        });
+
+        jtxt_edad.setToolTipText("");
+
+        jtable_clientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jtable_clientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtable_clientesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtable_clientes);
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Clientes");
 
-        jButton1.setText("REGRESAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel1.setText("ID:");
+
+        jLabel2.setText("NOMBRE:");
+
+        jLabel3.setText("APELLIDO:");
 
         jLabel5.setText("RUT:");
         jLabel5.setToolTipText("");
 
         jLabel6.setText("EDAD:");
-
-        jtxt_edad.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,7 +178,7 @@ public class Clientes extends javax.swing.JFrame {
                     .addComponent(btn_eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                     .addComponent(btn_modificar, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                     .addComponent(btn_actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_regresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(97, 97, 97))
         );
         layout.setVerticalGroup(
@@ -211,7 +197,7 @@ public class Clientes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_actualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btn_regresar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -241,91 +227,51 @@ public class Clientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtable_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_clientesMouseClicked
-DefaultTableModel model1=(DefaultTableModel)this.jtable_clientes.getModel();
+this.jtable_clientes.getModel();
 int i = jtable_clientes.getSelectedRow();
 //condicion si no se selecciono ninguno
 if(i==-1){
-JOptionPane.showMessageDialog(this, "Seleccione");
-}else{
-//mostramso los datos en los jtxt
-    //convertimos en string el resultado
+JOptionPane.showMessageDialog(this, "Seleccione");}
+else{/* mostramos los datos en los jtxt
+     convertimos en string el resultado */
     jtxt_id.setText(String.valueOf(jtable_clientes.getValueAt(i, 0)));
     jtxt_nombre.setText(String.valueOf(jtable_clientes.getValueAt(i, 1)));
     jtxt_apellido.setText(String.valueOf(jtable_clientes.getValueAt(i, 2)));
     jtxt_rut.setText(String.valueOf(jtable_clientes.getValueAt(i, 3)));
-    jtxt_edad.setText(String.valueOf(jtable_clientes.getValueAt(i, 4)));
-
-}
-        
-// TODO add your handling code here:
+    jtxt_edad.setText(String.valueOf(jtable_clientes.getValueAt(i, 4))); }
     }//GEN-LAST:event_jtable_clientesMouseClicked
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-//llamamos al metodo
-        Agregar1();
-        
-// TODO add your handling code here:
+//llamamos al metodo agregar
+try{ Agregar(); }
+catch(Exception e){}
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-
-        Eliminar1();
-// TODO add your handling code here:
+//llamamos al metodo eliminar
+try{ Eliminar(); }
+catch(Exception e){}
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
-
-        Modificar1();
-// TODO add your handling code here:
+//llamamos al metodo modificar
+try{ Modificar(); }
+catch(Exception e){}
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-
-        DatosTabla1();
-// TODO add your handling code here:
+try{ DatosTabla(); }
+catch(Exception e){}   
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
     new Inicio().setVisible(true);
-     this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    this.setVisible(false);
+    }//GEN-LAST:event_btn_regresarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Clientes().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> {
+            new Clientes().setVisible(true);  });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -333,7 +279,7 @@ JOptionPane.showMessageDialog(this, "Seleccione");
     private javax.swing.JButton btn_agregar;
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_modificar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btn_regresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

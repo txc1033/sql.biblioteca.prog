@@ -1,75 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Capa_presentacion;
 import Adminitrador.Administrador;
-import java.sql.*;
-
 /**
  *
  * @author javier
  */
-public class Inicio extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Inicio
-     */
+public class Inicio extends javax.swing.JFrame { 
+    Administrador admin = new Administrador();
     public Inicio() {
         this.setLocationRelativeTo(null);
-        initComponents();
+        initComponents();       
     }
-
-   public void crearl(){
-    Administrador admin = new Administrador();
-    admin.crearl();
-   }
-    public void crearc(){
-    Administrador admin = new Administrador();
-    admin.crearc();
-
-    }
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        clbro = new javax.swing.JButton();
-        cclientes = new javax.swing.JButton();
+        jinicio = new javax.swing.JLabel();
+        btn_libros = new javax.swing.JButton();
+        btn_clientes = new javax.swing.JButton();
+        btn_db_libro = new javax.swing.JButton();
+        btn_db_clientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Bienvenido a la biblioteca");
+        jinicio.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jinicio.setText("Bienvenido a la biblioteca");
 
-        jButton1.setText("Libros");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_libros.setText("Libros");
+        btn_libros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_librosActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Clientes");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btn_clientes.setText("Clientes");
+        btn_clientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btn_clientesActionPerformed(evt);
             }
         });
 
-        clbro.setText("Crear tabla libros");
-        clbro.addActionListener(new java.awt.event.ActionListener() {
+        btn_db_libro.setText("Crear tabla libros");
+        btn_db_libro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clbroActionPerformed(evt);
+                btn_db_libroActionPerformed(evt);
             }
         });
 
-        cclientes.setText("Crear tabla clientes");
-        cclientes.addActionListener(new java.awt.event.ActionListener() {
+        btn_db_clientes.setText("Crear tabla clientes");
+        btn_db_clientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cclientesActionPerformed(evt);
+                btn_db_clientesActionPerformed(evt);
             }
         });
 
@@ -81,97 +60,68 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(80, 80, 80)
-                        .addComponent(jLabel1))
+                        .addComponent(jinicio))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(99, 99, 99)
-                        .addComponent(jButton1)
+                        .addComponent(btn_libros)
                         .addGap(59, 59, 59)
-                        .addComponent(jButton2)))
+                        .addComponent(btn_clientes)))
                 .addContainerGap(77, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(clbro)
+                .addComponent(btn_db_libro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cclientes)
+                .addComponent(btn_db_clientes)
                 .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jLabel1)
+                .addComponent(jinicio)
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btn_libros)
+                    .addComponent(btn_clientes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clbro)
-                    .addComponent(cclientes))
+                    .addComponent(btn_db_libro)
+                    .addComponent(btn_db_clientes))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_librosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_librosActionPerformed
      new Libros().setVisible(true);
      this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_librosActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
      new Clientes().setVisible(true);
      this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btn_clientesActionPerformed
 
-    private void clbroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clbroActionPerformed
-    crearl();
-    }//GEN-LAST:event_clbroActionPerformed
+    private void btn_db_libroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_db_libroActionPerformed
+    admin.CrearL();
+    }//GEN-LAST:event_btn_db_libroActionPerformed
 
-    private void cclientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cclientesActionPerformed
-    crearc();
-    }//GEN-LAST:event_cclientesActionPerformed
+    private void btn_db_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_db_clientesActionPerformed
+    admin.CrearC();
+    }//GEN-LAST:event_btn_db_clientesActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Inicio().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Inicio().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cclientes;
-    private javax.swing.JButton clbro;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btn_clientes;
+    private javax.swing.JButton btn_db_clientes;
+    private javax.swing.JButton btn_db_libro;
+    private javax.swing.JButton btn_libros;
+    private javax.swing.JLabel jinicio;
     // End of variables declaration//GEN-END:variables
 }
