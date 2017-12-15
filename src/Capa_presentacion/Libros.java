@@ -1,49 +1,51 @@
 /* Autor @Javifast */
 package Capa_presentacion;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import Adminitrador.Administrador;
 
 public class Libros extends javax.swing.JFrame {
+
     // Se inicializan las variables a utilizar
     int id;
     String nombre, autor;
     Administrador admin = new Administrador();
-    
+
     public Libros() {
         this.setLocationRelativeTo(null);
         initComponents();
-        DatosTabla();  
+        DatosTabla();
     }
 
-    public void DatosTabla(){
-      DefaultTableModel model;
-      Administrador oper = new Administrador();    
-      model = oper.listaL();
-      jtable_libro.setModel(model);
-     
+    public void DatosTabla() {
+        DefaultTableModel model;
+        Administrador oper = new Administrador();
+        model = oper.listaL();
+        jtable_libro.setModel(model);
+
     }
-    
-    public void Agregar(){
-      id = Integer.parseInt(jtxt_id.getText());        
-      nombre = jtxt_nombre.getText();
-      autor = jtxt_autor.getText(); 
-      admin.AgregarConsultaL(id,nombre,autor);
+
+    public void Agregar() {
+        id = Integer.parseInt(jtxt_id.getText());
+        nombre = jtxt_nombre.getText();
+        autor = jtxt_autor.getText();
+        admin.AgregarConsultaL(id, nombre, autor);
     }
-    
-    public void Eliminar(){
-      id = Integer.parseInt(jtxt_id.getText());  
-      admin.EliminarConsultaL(id);
+
+    public void Eliminar() {
+        id = Integer.parseInt(jtxt_id.getText());
+        admin.EliminarConsultaL(id);
     }
-    
-    public void Modificar(){
-      id = Integer.parseInt(jtxt_id.getText());        
-      nombre = jtxt_nombre.getText();
-      autor = jtxt_autor.getText(); 
-      admin.ModificarConsultaL(id,nombre,autor);   
+
+    public void Modificar() {
+        id = Integer.parseInt(jtxt_id.getText());
+        nombre = jtxt_nombre.getText();
+        autor = jtxt_autor.getText();
+        admin.ModificarConsultaL(id, nombre, autor);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -209,64 +211,61 @@ public class Libros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtable_libroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_libroMouseClicked
-     this.jtable_libro.getModel();
-         int i = jtable_libro.getSelectedRow();
-     if(i==-1){
-           JOptionPane.showMessageDialog(this, "Seleccione");}
-     else{
-           jtxt_id.setText(String.valueOf(jtable_libro.getValueAt(i, 0)));
-           jtxt_nombre.setText(String.valueOf(jtable_libro.getValueAt(i, 1)));
-           jtxt_autor.setText(String.valueOf(jtable_libro.getValueAt(i, 2)));}
+        this.jtable_libro.getModel();
+        int i = jtable_libro.getSelectedRow();
+        if (i == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione");
+        } else {
+            jtxt_id.setText(String.valueOf(jtable_libro.getValueAt(i, 0)));
+            jtxt_nombre.setText(String.valueOf(jtable_libro.getValueAt(i, 1)));
+            jtxt_autor.setText(String.valueOf(jtable_libro.getValueAt(i, 2)));
+        }
     }//GEN-LAST:event_jtable_libroMouseClicked
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-    try{
-     if (id>=0){
-         
-     Agregar();
-     DatosTabla();
-     }
-     else {
-         JOptionPane.showMessageDialog(this,"Necesita ingresar id valido para agregar");    
-     }
-     }
-    catch(NumberFormatException ex){  
-    }
+        try {
+            if (id >= 0) {
+
+                Agregar();
+                DatosTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Necesita ingresar id valido para agregar");
+            }
+        } catch (NumberFormatException ex) {
+        }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-    try {  
-     if (id>=0){
-     Eliminar();
-     DatosTabla();
-     }
-     else {
-         JOptionPane.showMessageDialog(this,"Necesita ingresar id valido para agregar");    
-     }
-     }      
-    catch(NumberFormatException ex){ }
+        try {
+            if (id >= 0) {
+                Eliminar();
+                DatosTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Necesita ingresar id valido para agregar");
+            }
+        } catch (NumberFormatException ex) {
+        }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
-    try{
-     if (id>=0){
-     Modificar();
-     DatosTabla();
-     }
-     else {
-         JOptionPane.showMessageDialog(this,"Necesita ingresar id valido para agregar");    
-     }
-       }
-    catch(NumberFormatException ex){}
+        try {
+            if (id >= 0) {
+                Modificar();
+                DatosTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Necesita ingresar id valido para agregar");
+            }
+        } catch (NumberFormatException ex) {
+        }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
-     new Inicio().setVisible(true);
-     this.setVisible(false);
+        new Inicio().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-    DatosTabla();
+        DatosTabla();
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     public static void main(String args[]) {

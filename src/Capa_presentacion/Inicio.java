@@ -1,14 +1,18 @@
 package Capa_presentacion;
+
 import Adminitrador.Administrador;
+
 /**
  *
  * @author javier
  */
-public class Inicio extends javax.swing.JFrame { 
+public class Inicio extends javax.swing.JFrame {
+
     Administrador admin = new Administrador();
+
     public Inicio() {
         this.setLocationRelativeTo(null);
-        initComponents();       
+        initComponents();
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -95,21 +99,21 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_librosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_librosActionPerformed
-     new Libros().setVisible(true);
-     this.setVisible(false);
+        new Libros().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_librosActionPerformed
 
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
-     new Clientes().setVisible(true);
-     this.setVisible(false);
+        new Clientes().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_db_libroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_db_libroActionPerformed
-    admin.CrearL();
+        admin.CrearL();
     }//GEN-LAST:event_btn_db_libroActionPerformed
 
     private void btn_db_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_db_clientesActionPerformed
-    admin.CrearC();
+        admin.CrearC();
     }//GEN-LAST:event_btn_db_clientesActionPerformed
 
     public static void main(String args[]) {

@@ -1,44 +1,50 @@
 /* Autor @Javifast */
 package Capa_presentacion;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Adminitrador.Administrador;
 
 public class Clientes extends javax.swing.JFrame {
- String nombre, apellido, rut, edad;
+
+    String nombre, apellido, rut, edad;
     int id;
     Administrador admin = new Administrador();
-  
+
     public Clientes() {
         this.setLocationRelativeTo(null);
         initComponents();
         DatosTabla();
     }
-//metodo para MOSTRAR DATOS EN LA TABLAS
-    public void DatosTabla(){
-    DefaultTableModel modelC;
-    Administrador oper = new Administrador();    
-    modelC = oper.listaC();
-    jtable_clientes.setModel(modelC);
+
+     //metodo para cargar los datos del metodo ListaC y mostrarlo en el jtable_clientes
+    public void DatosTabla() {
+        DefaultTableModel modelC;
+        Administrador oper = new Administrador();
+        modelC = oper.listaC();
+        jtable_clientes.setModel(modelC);
     }
-    //metodo para agregar datos
-    public void Agregar(){
+
+    //metodo para agregar datos  y llamar al metodo AgregarConsultaC
+    public void Agregar() {
         id = Integer.parseInt(jtxt_id.getText());
         nombre = jtxt_nombre.getText();
         apellido = jtxt_apellido.getText();
         rut = jtxt_rut.getText();
         edad = jtxt_edad.getText();
-        admin.AgregarConsultaC(id,nombre,apellido,rut,edad);
+        admin.AgregarConsultaC(id, nombre, apellido, rut, edad);
         DatosTabla();
     }
-    //metodo para eliminar datos
-    public void Eliminar(){
-    id = Integer.parseInt(jtxt_id.getText());
-    admin.EliminarConsultaC(id);
-    DatosTabla();
+
+    //metodo para eliminar datos y llamar al metodo EliminarConsultaC
+    public void Eliminar() {
+        id = Integer.parseInt(jtxt_id.getText());
+        admin.EliminarConsultaC(id);
+        DatosTabla();
     }
-    //metodo para modificar datos
-    public void Modificar(){
+
+    //metodo para modificar datos y llamar al metodo ModificarConsultaC
+    public void Modificar() {
         id = Integer.parseInt(jtxt_id.getText());
         nombre = jtxt_nombre.getText();
         apellido = jtxt_apellido.getText();
@@ -228,51 +234,61 @@ public class Clientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtable_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_clientesMouseClicked
-this.jtable_clientes.getModel();
-int i = jtable_clientes.getSelectedRow();
+        this.jtable_clientes.getModel();
+        int i = jtable_clientes.getSelectedRow();
 //condicion si no se selecciono ninguno
-if(i==-1){
-JOptionPane.showMessageDialog(this, "Seleccione");}
-else{/* mostramos los datos en los jtxt
+        if (i == -1) {//condicion si no se selecciono ninguno
+            JOptionPane.showMessageDialog(this, "Seleccione");
+        } else {/* mostramos los datos en los jtxt
      convertimos en string el resultado */
-    jtxt_id.setText(String.valueOf(jtable_clientes.getValueAt(i, 0)));
-    jtxt_nombre.setText(String.valueOf(jtable_clientes.getValueAt(i, 1)));
-    jtxt_apellido.setText(String.valueOf(jtable_clientes.getValueAt(i, 2)));
-    jtxt_rut.setText(String.valueOf(jtable_clientes.getValueAt(i, 3)));
-    jtxt_edad.setText(String.valueOf(jtable_clientes.getValueAt(i, 4))); }
+            jtxt_id.setText(String.valueOf(jtable_clientes.getValueAt(i, 0)));
+            jtxt_nombre.setText(String.valueOf(jtable_clientes.getValueAt(i, 1)));
+            jtxt_apellido.setText(String.valueOf(jtable_clientes.getValueAt(i, 2)));
+            jtxt_rut.setText(String.valueOf(jtable_clientes.getValueAt(i, 3)));
+            jtxt_edad.setText(String.valueOf(jtable_clientes.getValueAt(i, 4)));
+        }
     }//GEN-LAST:event_jtable_clientesMouseClicked
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
 //llamamos al metodo agregar
-try{ Agregar(); }
-catch(Exception e){}
+        try {
+            Agregar();
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-//llamamos al metodo eliminar
-try{ Eliminar(); }
-catch(Exception e){}
+
+        try {
+            Eliminar(); //llamamos al metodo eliminar
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
-//llamamos al metodo modificar
-try{ Modificar(); }
-catch(Exception e){}
+
+        try {
+            Modificar(); //llamamos al metodo modificar
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-try{ DatosTabla(); }
-catch(Exception e){}   
+        try {
+            DatosTabla(); //llamamos al metodo datostabla
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
-    new Inicio().setVisible(true);
-    this.setVisible(false);
+        new Inicio().setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new Clientes().setVisible(true);  });
+            new Clientes().setVisible(true);
+        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
