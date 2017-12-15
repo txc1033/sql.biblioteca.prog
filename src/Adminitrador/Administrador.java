@@ -20,6 +20,7 @@ public class Administrador {
 /* CLASES QUE INTERACUAN CON LA TABLA LIBROS */
     public void CrearL() { // metodo para crear la tabla libros
         try { // realizamos un try-catch para controlar los errores
+            cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
             s = cn.createStatement(); // primero almacenamos en la variable s el metodo createStatement de la variable cn
             SQL = "CREATE TABLE libros(id INT PRIMARY KEY AUTOINCREMENT NOT NULL,nombre VARCHAR NULL,autor VARCHAR  NULL);"; // almacenamos
             // la sentencia sql en la variable SQL para poder ser utilizada
@@ -33,16 +34,15 @@ public class Administrador {
             JOptionPane.showMessageDialog(null, "Error al Cargar la lista Clientes " + error);
             // imprimimos un mensaje alertando el codigo del error
         }
-    } 
-    
+    }
 
     public DefaultTableModel listaL() { //metodo para llenar la tabla libro que se mostrara en el jpanel libros
         try { // realizamos un try-catch para controlar los errores
             cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
             s = cn.createStatement();  // almacenamos en la variable s el metodo createStatement de la variable cn
             SQL = "select * from LIBROS WHERE id>0"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
-            rs = s.executeQuery(SQL); // ejecutamos el metodo executeUpdate + sentencia sql 
-            rsmd = rs.getMetaData(); // almacenamos el resultado en la variable rsmd
+            rs = s.executeQuery(SQL); // ejecutamos el metodo executeUpdate + sentencia sql y la almacenamos en la variable rs
+            rsmd = rs.getMetaData(); // ejecutamos el metodo getMetaData y la almacenamos el resultado en la variable rsmd
             CanColumns = rsmd.getColumnCount(); // obtenemos el tamaño de las columnas con el metodo .getColumCount y lo almacenamos
             // en la variable CanColums
             for (int i = 1; i <= CanColumns; i++) { // para llenar nuestra tabla nos apoyaremos por un ciclo for donde intanciamos un int llamado i
@@ -53,17 +53,16 @@ public class Administrador {
                 Object[] fila = new Object[CanColumns]; // crearemos un objeto de tipo array llamado fila con la dimension de Cancolumns
                 for (int i = 0; i < CanColumns; i++) { // crearemos otro for para esta vez imprimir las filas
                     fila[i] = rs.getObject(i + 1); // mientras continue el ciclo fila[i] sera igual al objeto re i+1
-                } 
+                }
                 modeloL.addRow(fila); // ademas iremos agregando las filas con el metodo addRow
-                s.close(); // finalizamos el Statement
-                cn.close(); // cerramos la conexion
             }
-        } 
-        catch (SQLException error) { // instanciamos una exception en caso de ocurrir un error que sera mostrar
-            JOptionPane.showMessageDialog(null,"Error al Cargar la lista Libros " + error); // una ventana emergente con el metodo getMessage el cual mostrara la
-        } // informacion del error
-       
-        return modeloL; // y retornamos el objeto modeloL// y retornamos el objeto modeloL
+            s.close(); // finalizamos el Statement
+            cn.close(); // cerramos la conexion
+        } catch (HeadlessException | SQLException error) { // instanciamos una exception en caso de ocurrir un error que sera mostrar
+            JOptionPane.showMessageDialog(null, "Error al Cargar la lista Libros " + error); // una ventana emergente con un mensaje de error
+        } // mas la informacion del error
+
+        return modeloL; // retornamos el objeto modeloL
     }
 
     public void AgregarConsultaL(int id, String nombre, String autor) { // este metodo pide parametros de ingreso al momento de ejecutarse
@@ -76,121 +75,127 @@ public class Administrador {
             s.close(); // finalizamos el  Statement
             cn.close(); // cerramos la conexion
             JOptionPane.showMessageDialog(null, "AGREGADO"); // si el procedimiento se realiza correctamente mostramos el mensaje
-        } catch (HeadlessException
-                | SQLException error) {
-            JOptionPane.showMessageDialog(null, "No se a podido agregar"+error);
-        }
+        } catch (HeadlessException | SQLException error) { // instanciamos una exception en caso de ocurrir un error que sera mostrar
+            JOptionPane.showMessageDialog(null, "No se a podido agregar" + error);// una ventana emergente con un mensaje de error
+        } // mas la informacion del error
     }
 
     public void EliminarConsultaL(int id) {  // este metodo pide parametros de ingreso al momento de ejecutarse
         try { // generamos un try-catch para manejar los posibles errores
-            s = cn.createStatement();
-            SQL = "DELETE FROM libros WHERE id=" + id + "";
-            s.executeUpdate(SQL);
-            s.close();
-            cn.close();
-            JOptionPane.showMessageDialog(null, "ELIMINADO");
-        } catch (HeadlessException | SQLException error) {
-            JOptionPane.showMessageDialog(null, "No se a podido eliminar");
-        }
+            cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
+            s = cn.createStatement(); // almacenamos en la variable s el metodo createStatement de la variable cn    
+            SQL = "DELETE FROM libros WHERE id=" + id + ""; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+            s.executeUpdate(SQL); // ejecutamos el metodo executeUpdate + sentencia sql 
+            s.close();  // finalizamos el  Statement
+            cn.close(); // cerramos la conexion
+            JOptionPane.showMessageDialog(null, "ELIMINADO"); // si el procedimiento se realiza correctamente mostramos el mensaje
+        } catch (HeadlessException | SQLException error) { // instanciamos una exception en caso de ocurrir un error que sera mostrar
+            JOptionPane.showMessageDialog(null, "No se a podido eliminar " + error);// una ventana emergente con un mensaje de error
+        } // mas la informacion del error
     }
 
     public void ModificarConsultaL(int id, String nombre, String autor) {
-        try {
-            s = cn.createStatement();
-            SQL = "UPDATE libros SET nombre='" + nombre + "',autor='" + autor + "' WHERE id='" + id + "';";
-            s.executeUpdate(SQL);
-            s.close();
-            cn.close();
-            JOptionPane.showMessageDialog(null, "MODIFICADO");
-        } catch (HeadlessException
-                | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Dato repetido o invalido");
-        }
+        try { // realizamos un try-catch para controlar los errores
+            cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
+            s = cn.createStatement(); // almacenamos en la variable s el metodo createStatement de la variable cn    
+            SQL = "UPDATE libros SET nombre='" + nombre + "',autor='" + autor + "' WHERE id='" + id + "';"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+            s.executeUpdate(SQL); // ejecutamos el metodo executeUpdate + sentencia sql 
+            s.close(); // finalizamos el  Statement
+            cn.close(); // cerramos la conexion
+            JOptionPane.showMessageDialog(null, "MODIFICADO"); // si el procedimiento se realiza correctamente mostramos el mensaje
+        } catch (HeadlessException | SQLException error) { // instanciamos una exception en caso de ocurrir un error que sera mostrar
+            JOptionPane.showMessageDialog(null, "Dato repetido o invalido " + error);// una ventana emergente con un mensaje de error
+        } // mas la informacion del error
     }
 
     /* CLASES QUE INTERACUAN CON LA TABLA CLIENTES */
-    public void CrearC() {
-        try {
-            s = cn.createStatement();
+    public void CrearC() { // metodo para crear la tabla libros
+        try { // realizamos un try-catch para controlar los errores
+            cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
+            s = cn.createStatement(); // almacenamos en la variable s el metodo createStatement de la variable cn    
             SQL = "CREATE TABLE clientes " + " (id INT PRIMARY KEY AUTOINCREMENT NOT NULL,nombre VARCHAR NULL,"
-                    + "apellido VARCHAR NULL,rut VARCHAR UNIQUE NULL,edad  VARCHAR NULL);";
-            s.executeUpdate(SQL);
-            s.close();
-            cn.close();
-            JOptionPane.showMessageDialog(null, "Tabla Clientes Creada");
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "ya esta creada");
-        }
+                    + "apellido VARCHAR NULL,rut VARCHAR UNIQUE NULL,edad  VARCHAR NULL);"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+            s.executeUpdate(SQL); // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+            s.close(); // finalizamos el  Statement
+            cn.close(); // cerramos la conexion
+            JOptionPane.showMessageDialog(null, "Tabla Clientes Creada"); // si el procedimiento se realiza correctamente mostramos el mensaje
+        } catch (HeadlessException | SQLException error) { // instanciamos una exception en caso de ocurrir un error que sera mostrar
+            JOptionPane.showMessageDialog(null, "ya esta creada " + error);// una ventana emergente con un mensaje de error
+        } // mas la informacion del error
     }
 
     public DefaultTableModel listaC() {
-        try {
-            cn = Coneccion.Enlace(cn);
-            s = cn.createStatement();
-            SQL = "select * from clientes WHERE id>0;";
-            rs = s.executeQuery(SQL);
-            rsmd = rs.getMetaData();
-            CanColumns = rsmd.getColumnCount();
-            for (int i = 1; i <= CanColumns; i++) {
+        try { // realizamos un try-catch para controlar los errores
+            cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
+            s = cn.createStatement(); // almacenamos en la variable s el metodo createStatement de la variable cn    
+            SQL = "select * from clientes WHERE id>0;"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+            rs = s.executeQuery(SQL); // ejecutamos el metodo executeUpdate + sentencia sql y la almacenamos en la variable rs
+            rsmd = rs.getMetaData(); // ejecutamos el metodo getMetaData y la almacenamos el resultado en la variable rsmd
+            CanColumns = rsmd.getColumnCount();// obtenemos el tamaño de las columnas con el metodo .getColumCount y lo almacenamos
+            // en la variable CanColums
+            for (int i = 1; i <= CanColumns; i++) { // para llenar nuestra tabla nos apoyaremos por un ciclo for donde intanciamos un int llamado i
+                // con la condicion de que i sea menor o igual a la variable CanConlums y con el incrementador i++
                 modeloC.addColumn(rsmd.getColumnLabel(i));
-            }
-            while (rs.next()) {
-
-                Object[] fila = new Object[CanColumns];
-
-                for (int i = 0; i < CanColumns; i++) {
-                    fila[i] = rs.getObject(i + 1);
+            }// minetras el ciclo continue se se agregara al objeto modeloC la columna correspondiente
+            while (rs.next()) { // tambien crearemos un while donde 
+                Object[] fila = new Object[CanColumns]; // crearemos un objeto de tipo array llamado fila con la dimension de Cancolumns
+                for (int i = 0; i < CanColumns; i++) { // crearemos otro for para esta vez imprimir las filas
+                    fila[i] = rs.getObject(i + 1); // mientras continue el ciclo fila[i] sera igual al objeto re i+1
                 }
-                modeloC.addRow(fila);
+                modeloC.addRow(fila); // ademas iremos agregando las filas con el metodo addRow
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+            s.close(); // finalizamos el Statement
+            cn.close(); // cerramos la conexion
+        } catch (HeadlessException | SQLException error) {
+            JOptionPane.showMessageDialog(null, "Error al Cargar la lista Clientes " + error);// una ventana emergente con un mensaje de error
+        } // mas la informacion del error
 
-        return modeloC;
+        return modeloC; // retornamos el objeto modeloC
 
     }
 
     public void AgregarConsultaC(int id, String nombre, String apellido, String rut, String edad) {
-        try {
-            s = cn.createStatement();
-            SQL = "INSERT INTO clientes (id,nombre,apellido,rut,edad) "
+        try { // realizamos un try-catch para controlar los errores
+            cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
+            s = cn.createStatement();  // almacenamos en la variable s el metodo createStatement de la variable cn            
+            SQL = "INSERT INTO clientes (id,nombre,apellido,rut,edad) " // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
                     + "VALUES ('" + id + "','" + nombre + "','" + apellido + "','" + rut + "','" + edad + "')";
-            s.executeUpdate(SQL);
-            s.close();
-            cn.close();
-            JOptionPane.showMessageDialog(null, "AGREGADO");
-        } catch (HeadlessException | SQLException error) {
-            JOptionPane.showMessageDialog(null, "No se a podido agregar "+error);
-        }
+            s.executeUpdate(SQL);// ejecutamos el metodo executeUpdate + sentencia sql 
+            s.close(); // finalizamos el  Statement
+            cn.close(); // cerramos la conexion
+            JOptionPane.showMessageDialog(null, "AGREGADO"); // si el procedimiento se realiza correctamente mostramos el mensaje
+        } catch (HeadlessException | SQLException error) { // instanciamos una exception en caso de ocurrir un error que sera mostrar
+            JOptionPane.showMessageDialog(null, "No se a podido agregar " + error);// una ventana emergente con un mensaje de error
+        } // mas la informacion del error
     }
 
-    public void EliminarConsultaC(int id) {
-        try {
-            s = cn.createStatement();
-            SQL = "DELETE FROM clientes WHERE id=" + id + ";";
-            s.executeUpdate(SQL);
-            s.close();
-            cn.close();
-            JOptionPane.showMessageDialog(null, "ELIMINADO");
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "No se a podido eliminar");
-        }
+    public void EliminarConsultaC(int id) { // este metodo pide parametros de ingreso al momento de ejecutarse
+        try { // realizamos un try-catch para controlar los errores
+            cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
+            s = cn.createStatement(); // almacenamos en la variable s el metodo createStatement de la variable cn    
+            SQL = "DELETE FROM clientes WHERE id=" + id + ";"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+            s.executeUpdate(SQL); // ejecutamos el metodo executeUpdate + sentencia sql 
+            s.close();  // finalizamos el  Statement
+            cn.close(); // cerramos la conexion
+            JOptionPane.showMessageDialog(null, "ELIMINADO"); // si el procedimiento se realiza correctamente mostramos el mensaje
+        } catch (HeadlessException | SQLException error) { // instanciamos una exception en caso de ocurrir un error que sera mostrar
+            JOptionPane.showMessageDialog(null, "No se a podido eliminar " + error);// una ventana emergente con un mensaje de error
+        } // mas la informacion del error
     }
 
     public void ModificarConsultaC(int id, String nombre, String apellido, String rut, String edad) {
-        try {
-            s = cn.createStatement();
+        try { // realizamos un try-catch para controlar los errores
+            cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
+            s = cn.createStatement(); // almacenamos en la variable s el metodo createStatement de la variable cn    
             SQL = "UPDATE clientes SET nombre='" + nombre + "',apellido='" + apellido + "',rut='"
-                    + rut + "',edad='" + edad + "' WHERE id='" + id + "';";
-            s.executeUpdate(SQL);
-            s.close();
-            cn.close();
-            JOptionPane.showMessageDialog(null, "MODIFICADO");
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Dato repetido o invalido");
-        }
+                    + rut + "',edad='" + edad + "' WHERE id='" + id + "';"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+            s.executeUpdate(SQL); // ejecutamos el metodo executeUpdate + sentencia sql 
+            s.close(); // finalizamos el  Statement
+            cn.close(); // cerramos la conexion
+            JOptionPane.showMessageDialog(null, "MODIFICADO"); // si el procedimiento se realiza correctamente mostramos el mensaje
+        } catch (HeadlessException | SQLException error) { // instanciamos una exception en caso de ocurrir un error que sera mostrar
+            JOptionPane.showMessageDialog(null, "Dato repetido o invalido " + error);// una ventana emergente con un mensaje de error
+        } // mas la informacion del error
 
     }
 }
