@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import Adminitrador.Administrador;
+import java.sql.SQLException;
 
 public class Libros extends javax.swing.JFrame {
 
@@ -22,24 +23,23 @@ public class Libros extends javax.swing.JFrame {
     public void DatosTabla() {
         DefaultTableModel model;
         Administrador oper = new Administrador();
-        model = oper.listaL();
+        model = oper.listar_tabla("libros");
         jtable_libro.setModel(model);
-
     }
 
-    public void Agregar() {
+    public void Agregar() throws SQLException {
         id = Integer.parseInt(jtxt_id.getText());
         nombre = jtxt_nombre.getText();
         autor = jtxt_autor.getText();
         admin.AgregarConsultaL(id, nombre, autor);
     }
 
-    public void Eliminar() {
+    public void Eliminar() throws SQLException {
         id = Integer.parseInt(jtxt_id.getText());
         admin.EliminarConsultaL(id);
     }
 
-    public void Modificar() {
+    public void Modificar() throws SQLException {
         id = Integer.parseInt(jtxt_id.getText());
         nombre = jtxt_nombre.getText();
         autor = jtxt_autor.getText();
@@ -224,38 +224,28 @@ public class Libros extends javax.swing.JFrame {
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         try {
-            if (id >= 0) {
-
-                Agregar();
-                DatosTabla();
-            } else {
-                JOptionPane.showMessageDialog(this, "Necesita ingresar id valido para agregar");
-            }
-        } catch (NumberFormatException ex) {
+            Agregar();
+            DatosTabla();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         try {
-            if (id >= 0) {
-                Eliminar();
-                DatosTabla();
-            } else {
-                JOptionPane.showMessageDialog(this, "Necesita ingresar id valido para agregar");
-            }
-        } catch (NumberFormatException ex) {
+            Eliminar();
+            DatosTabla();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         try {
-            if (id >= 0) {
-                Modificar();
-                DatosTabla();
-            } else {
-                JOptionPane.showMessageDialog(this, "Necesita ingresar id valido para agregar");
-            }
-        } catch (NumberFormatException ex) {
+            Modificar();
+            DatosTabla();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
@@ -265,7 +255,11 @@ public class Libros extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
-        DatosTabla();
+        try {
+            DatosTabla(); //llamamos al metodo datostabla
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     public static void main(String args[]) {

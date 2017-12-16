@@ -1,9 +1,10 @@
-/* Autor @Javifast */
+/* Autor @Javifast | @Txc1033 */
 package Capa_presentacion;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Adminitrador.Administrador;
+import java.sql.SQLException;
 
 public class Clientes extends javax.swing.JFrame {
 
@@ -19,14 +20,14 @@ public class Clientes extends javax.swing.JFrame {
 
      //metodo para cargar los datos del metodo ListaC y mostrarlo en el jtable_clientes
     public void DatosTabla() {
-        DefaultTableModel modelC;
+        DefaultTableModel model;
         Administrador oper = new Administrador();
-        modelC = oper.listaC();
-        jtable_clientes.setModel(modelC);
+        model = oper.listar_tabla("clientes");
+        jtable_clientes.setModel(model);
     }
 
     //metodo para agregar datos  y llamar al metodo AgregarConsultaC
-    public void Agregar() {
+    public void Agregar() throws SQLException {
         id = Integer.parseInt(jtxt_id.getText());
         nombre = jtxt_nombre.getText();
         apellido = jtxt_apellido.getText();
@@ -37,14 +38,14 @@ public class Clientes extends javax.swing.JFrame {
     }
 
     //metodo para eliminar datos y llamar al metodo EliminarConsultaC
-    public void Eliminar() {
+    public void Eliminar() throws SQLException {
         id = Integer.parseInt(jtxt_id.getText());
         admin.EliminarConsultaC(id);
         DatosTabla();
     }
 
     //metodo para modificar datos y llamar al metodo ModificarConsultaC
-    public void Modificar() {
+    public void Modificar() throws SQLException {
         id = Integer.parseInt(jtxt_id.getText());
         nombre = jtxt_nombre.getText();
         apellido = jtxt_apellido.getText();
@@ -253,7 +254,8 @@ public class Clientes extends javax.swing.JFrame {
 //llamamos al metodo agregar
         try {
             Agregar();
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
@@ -261,7 +263,8 @@ public class Clientes extends javax.swing.JFrame {
 
         try {
             Eliminar(); //llamamos al metodo eliminar
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
@@ -269,14 +272,16 @@ public class Clientes extends javax.swing.JFrame {
 
         try {
             Modificar(); //llamamos al metodo modificar
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         try {
             DatosTabla(); //llamamos al metodo datostabla
-        } catch (Exception e) {
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btn_actualizarActionPerformed
 

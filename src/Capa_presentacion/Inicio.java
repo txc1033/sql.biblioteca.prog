@@ -1,11 +1,8 @@
+/* Autor @Javifast | @Txc1033 */
 package Capa_presentacion;
 
 import Adminitrador.Administrador;
 
-/**
- *
- * @author javier
- */
 public class Inicio extends javax.swing.JFrame {
 
     Administrador admin = new Administrador();
@@ -109,11 +106,19 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_clientesActionPerformed
 
     private void btn_db_libroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_db_libroActionPerformed
-        admin.CrearL();
+        try {
+            admin.CrearL();
+        } catch (Exception ex) {
+          System.out.println(ex);
+        }
     }//GEN-LAST:event_btn_db_libroActionPerformed
 
     private void btn_db_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_db_clientesActionPerformed
-        admin.CrearC();
+        try {
+            admin.CrearC();
+        } catch (Exception ex) {
+          System.out.println(ex);
+        }
     }//GEN-LAST:event_btn_db_clientesActionPerformed
 
     public static void main(String args[]) {
