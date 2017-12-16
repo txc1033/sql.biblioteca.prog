@@ -1,8 +1,8 @@
 /* Autor @Javifast | @Txc1033 */
 package biblioteca;
 
-import java.sql.*;
-import javax.swing.JOptionPane;
+import java.sql.*;  // importamos las clases del paquete sql
+import javax.swing.JOptionPane; // importamos la clase JOptionPane
 
 public class Coneccion {
 

@@ -19,6 +19,7 @@ public class Administrador {
     ResultSetMetaData rsmd; // inicializamos una variable llamada rsmd de tipo ResultSetMetaData;
 
     /*----------------------------------------------CLASES QUE INTERACUAN CON LA TABLA LIBROS-------------------------------------------------*/
+    
     public void CrearL() throws SQLException { // metodo para crear la tabla libros
         SQL = "CREATE TABLE libros(id INT PRIMARY KEY AUTOINCREMENT NOT NULL,nombre VARCHAR NULL,autor VARCHAR  NULL);";
         // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
@@ -62,6 +63,7 @@ public class Administrador {
     }
 
     /*----------------------------------------------METODOS QUE INTERACUAN CON LA TABLA CLIENTES----------------------------------------------*/
+    
     public void CrearC() throws SQLException { // metodo para crear la tabla libros         
         SQL = "CREATE TABLE clientes " + " (id INT PRIMARY KEY AUTOINCREMENT NOT NULL,nombre VARCHAR NULL,"
                 + "apellido VARCHAR NULL,rut VARCHAR UNIQUE NULL,edad  VARCHAR NULL);";
@@ -77,8 +79,8 @@ public class Administrador {
         SQL = "INSERT INTO clientes (id,nombre,apellido,rut,edad) "
                 + "VALUES ('" + id + "','" + nombre + "','" + apellido + "','" + rut + "','" + edad + "')";
         // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
-        int resultado = this.sentencia_sql(SQL);
-        if (resultado == 2) {
+        resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
+        if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
             JOptionPane.showMessageDialog(null, "AGREGADO", "Sentencia SQL", PLAIN_MESSAGE, null);
             // si el procedimiento se realiza correctamente mostramos el mensaje
         }
@@ -86,8 +88,8 @@ public class Administrador {
 
     public void EliminarConsultaC(int id) throws SQLException { // este metodo pide parametros de ingreso al momento de ejecutarse
         SQL = "DELETE FROM clientes WHERE id=" + id + ";"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
-        int resultado = this.sentencia_sql(SQL);
-        if (resultado == 2) {
+        resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
+        if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
             JOptionPane.showMessageDialog(null, "ELIMINADO", "Sentencia SQL", PLAIN_MESSAGE, null);
         }
     }
@@ -96,8 +98,8 @@ public class Administrador {
         SQL = "UPDATE clientes SET nombre='" + nombre + "',apellido='" + apellido + "',rut='"
                 + rut + "',edad='" + edad + "' WHERE id='" + id + "';";
         // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
-        int resultado = this.sentencia_sql(SQL);
-        if (resultado == 2) {
+        resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
+        if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
             JOptionPane.showMessageDialog(null, "MODIFICADO"); // si el procedimiento se realiza correctamente mostramos el mensaje
         }
 
@@ -106,13 +108,13 @@ public class Administrador {
     /*----------------------------------------------METODO QUE INTERACTUA CON LA TABLA LIBROS Y CLIENTE---------------------------------------*/
 
     public DefaultTableModel listar_tabla(String tabla) { // unificamos los metodos listaC y listaL en un solo metodo
-        switch (tabla) {
-            case "libros":
+        switch (tabla) { // se genera un switch para manejar el valor de la variable pre definido en los jframe cliente y libros
+            case "libros": // en caso de ser libros
                 SQL = "select * from LIBROS WHERE id>0"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
-                break;
-            case "clientes":
+                break; // finalizamos la sentencia switch
+            case "clientes": // en caso de ser clientes
                 SQL = "select * from clientes WHERE id>0;"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
-                break;
+                break; // finalizamos la sentencia switch
         }
         try { // realizamos un try-catch para controlar los errores
             cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
@@ -140,7 +142,7 @@ public class Administrador {
         return modelo; // retornamos el objeto modelo
     }
 
-    public int sentencia_sql(String cadena) throws SQLException {
+    public int sentencia_sql(String cadena) throws SQLException { // este metodo se encargara de ejecutar el crud a solicitud de los metodos
         int retorno = 0; // inicializamos la variable que retorna con valor 0 por defecto
         try { // realizamos un try-catch para controlar los errores
             cn = Coneccion.Enlace(cn);  // almacenamos el metodo enlace en la variable cn
