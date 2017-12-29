@@ -3,18 +3,16 @@ package Capa_presentacion;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 import Adminitrador.Administrador;
+import biblioteca.Libro;
 import java.sql.SQLException;
 
-public class Libros extends javax.swing.JFrame {
+public class Vista_Libros extends javax.swing.JFrame {
 
     // Se inicializan las variables a utilizar
-    int id;
-    String nombre, autor;
     Administrador admin = new Administrador();
-
-    public Libros() {
+    int id;
+    public Vista_Libros() {
         this.setLocationRelativeTo(null);
         initComponents();
         DatosTabla();
@@ -28,22 +26,15 @@ public class Libros extends javax.swing.JFrame {
     }
 
     public void Agregar() throws SQLException {
-        id = Integer.parseInt(jtxt_id.getText());
-        nombre = jtxt_nombre.getText();
-        autor = jtxt_autor.getText();
-        admin.AgregarConsultaL(id, nombre, autor);
+        admin.AgregarConsultaL(new Libro(jtxt_nombre.getText(),jtxt_autor.getText()));
     }
 
     public void Eliminar() throws SQLException {
-        id = Integer.parseInt(jtxt_id.getText());
-        admin.EliminarConsultaL(id);
+        admin.EliminarConsultaL(new Libro(id));
     }
 
     public void Modificar() throws SQLException {
-        id = Integer.parseInt(jtxt_id.getText());
-        nombre = jtxt_nombre.getText();
-        autor = jtxt_autor.getText();
-        admin.ModificarConsultaL(id, nombre, autor);
+        admin.ModificarConsultaL(new Libro(Integer.parseInt(jtxt_id.getText()),jtxt_nombre.getText(),jtxt_autor.getText()));
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -95,6 +86,10 @@ public class Libros extends javax.swing.JFrame {
 
         jLab_libros.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLab_libros.setText("LIBROS");
+
+        jtxt_id.setEditable(false);
+        jtxt_id.setFocusable(false);
+        jtxt_id.setRequestFocusEnabled(false);
 
         btn_agregar.setText("AGREGAR");
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -250,7 +245,7 @@ public class Libros extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
-        new Inicio().setVisible(true);
+        new Vista_Inicial().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btn_regresarActionPerformed
 
@@ -271,10 +266,10 @@ public class Libros extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Libros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Vista_Libros.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         java.awt.EventQueue.invokeLater(() -> {
-            new Libros().setVisible(true);
+            new Vista_Libros().setVisible(true);
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

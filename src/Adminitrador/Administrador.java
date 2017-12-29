@@ -1,7 +1,7 @@
 /* Autor @Javifast | @Txc1033 */
 package Adminitrador;
 
-import biblioteca.Coneccion; // importamos la conexion creada en la clase Coneccion del paquete biblioteca
+import biblioteca.*;
 import java.awt.HeadlessException; // importamos la clase HeadlessException
 import java.sql.*; // importamos el paquete sql con todos sus metodos y clases para gestionar las consultas en nuestra base de datos
 import javax.swing.JOptionPane; // importamos la clase joptionpane para generar ventanas de mensajes
@@ -17,12 +17,13 @@ public class Administrador {
     String SQL; // inicializamos una variable llamada SQL de tipo String
     int CanColumns, resultado; // inicalizamos una variable llamada CanColums y resultado de tipo int; 
     ResultSetMetaData rsmd; // inicializamos una variable llamada rsmd de tipo ResultSetMetaData;
-
     /*----------------------------------------------CLASES QUE INTERACUAN CON LA TABLA LIBROS-------------------------------------------------*/
     
     public void CrearL() throws SQLException { // metodo para crear la tabla libros
-        SQL = "CREATE TABLE libros(id INT PRIMARY KEY AUTOINCREMENT NOT NULL,nombre VARCHAR NULL,autor VARCHAR  NULL);";
+        SQL = "CREATE TABLE `libros` (`id` int(3) NOT NULL AUTO_INCREMENT,`nombre` varchar(60) NOT NULL,`autor` varchar(40) NOT NULL," +
+                                      "  UNIQUE KEY `id` (`id`));";
         // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+        System.out.println("Sentencia => "+SQL);
         resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
         if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
             JOptionPane.showMessageDialog(null, "Tabla Libros Creada", "Sentencia SQL", PLAIN_MESSAGE, null);
@@ -30,20 +31,23 @@ public class Administrador {
         }
     }
 
-    public void AgregarConsultaL(int id, String nombre, String autor) throws SQLException {
+    public void AgregarConsultaL(Libro li) throws SQLException {
         // este metodo pide parametros de ingreso al momento de ejecutarse
-        SQL = "INSERT INTO libros (id,nombre,autor) "
-                + "VALUES ('" + id + "','" + nombre + "','" + autor + "')";
-        // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
-        resultado = this.sentencia_sql(SQL);  // almacenamos el valor de retorno en la variable resultado
+        SQL = "INSERT INTO libros (nombre,autor) "
+                + "VALUES ('"+li.getNombre()+"','"+li.getAutor()+"')";
+        System.out.println("Sentencia => "+SQL);
+        resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
+         // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+        // almacenamos el valor de retorno en la variable resultado
         if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
             JOptionPane.showMessageDialog(null, "AGREGADO", "Sentencia SQL", PLAIN_MESSAGE, null);
             // imprimimos un mensaje emergente
         }
     }
 
-    public void EliminarConsultaL(int id) throws SQLException {  // este metodo pide parametros de ingreso al momento de ejecutarse 
-        SQL = "DELETE FROM libros WHERE id=" + id + ""; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+    public void EliminarConsultaL(Libro li) throws SQLException {  // este metodo pide parametros de ingreso al momento de ejecutarse 
+        SQL = "DELETE FROM libros WHERE id=" + li.getId() + ""; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+        System.out.println("Sentencia => "+SQL);
         resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
         if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
             JOptionPane.showMessageDialog(null, "ELIMINADO", "Sentencia SQL", PLAIN_MESSAGE, null);
@@ -51,10 +55,11 @@ public class Administrador {
         }
     }
 
-    public void ModificarConsultaL(int id, String nombre, String autor) throws SQLException {
+    public void ModificarConsultaL(Libro li) throws SQLException {
         // este metodo pide parametros de ingreso al momento de ejecutarse 
-        SQL = "UPDATE libros SET nombre='" + nombre + "',autor='" + autor + "' WHERE id='" + id + "';";
+        SQL = "UPDATE libros SET nombre='" + li.getNombre() + "',autor='" + li.getNombre() + "' WHERE id='" + li.getId() + "';";
         // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+        System.out.println("Sentencia => "+SQL);
         resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
         if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
             JOptionPane.showMessageDialog(null, "MODIFICADO", "Sentencia SQL", PLAIN_MESSAGE, null);
@@ -65,9 +70,10 @@ public class Administrador {
     /*----------------------------------------------METODOS QUE INTERACUAN CON LA TABLA CLIENTES----------------------------------------------*/
     
     public void CrearC() throws SQLException { // metodo para crear la tabla libros         
-        SQL = "CREATE TABLE clientes " + " (id INT PRIMARY KEY AUTOINCREMENT NOT NULL,nombre VARCHAR NULL,"
-                + "apellido VARCHAR NULL,rut VARCHAR UNIQUE NULL,edad  VARCHAR NULL);";
+        SQL = "CREATE TABLE `clientes` (`id` int(3) NOT NULL AUTO_INCREMENT,`nombre` varchar(60) NOT NULL,`apellido` varchar(60) NOT NULL,"+
+              "`rut` varchar(12) NOT NULL,`edad` int(3) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `rut` (`rut`));";
         // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+        System.out.println("Sentencia => "+SQL);
         resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
         if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
             JOptionPane.showMessageDialog(null, "Tabla Clientes Creada", "Sentencia SQL", PLAIN_MESSAGE, null);
@@ -75,9 +81,11 @@ public class Administrador {
         }
     }
 
-    public void AgregarConsultaC(int id, String nombre, String apellido, String rut, String edad) throws SQLException {
-        SQL = "INSERT INTO clientes (id,nombre,apellido,rut,edad) "
-                + "VALUES ('" + id + "','" + nombre + "','" + apellido + "','" + rut + "','" + edad + "')";
+    public void AgregarConsultaC(Persona per) throws SQLException {
+        SQL = "INSERT INTO clientes (nombre,apellido,rut,edad) "
+                + "VALUES ('" + per.getNombre() + "','" + per.getApellido() + "','" 
+                + per.getRut() + "','" + per.getEdad() + "')";
+        System.out.println("Sentencia => "+SQL);
         // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
         resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
         if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
@@ -86,17 +94,19 @@ public class Administrador {
         }
     }
 
-    public void EliminarConsultaC(int id) throws SQLException { // este metodo pide parametros de ingreso al momento de ejecutarse
-        SQL = "DELETE FROM clientes WHERE id=" + id + ";"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+    public void EliminarConsultaC(Persona per) throws SQLException { // este metodo pide parametros de ingreso al momento de ejecutarse
+        SQL = "DELETE FROM clientes WHERE id=" + per.getId() + ";"; // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
+        System.out.println("Sentencia => "+SQL);
         resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
         if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces
             JOptionPane.showMessageDialog(null, "ELIMINADO", "Sentencia SQL", PLAIN_MESSAGE, null);
         }
     }
 
-    public void ModificarConsultaC(int id, String nombre, String apellido, String rut, String edad) throws SQLException {
-        SQL = "UPDATE clientes SET nombre='" + nombre + "',apellido='" + apellido + "',rut='"
-                + rut + "',edad='" + edad + "' WHERE id='" + id + "';";
+    public void ModificarConsultaC(Persona per) throws SQLException {
+        SQL = "UPDATE clientes SET nombre='" + per.getNombre() + "',apellido='" + per.getApellido() + "',rut='"
+                + per.getRut() + "',edad='" + per.getEdad() + "' WHERE id='" + per.getId() + "';";
+        System.out.println("Sentencia => "+SQL);
         // almacenamos la sentencia sql en la variable SQL para poder ser utilizada
         resultado = this.sentencia_sql(SQL); // almacenamos el valor de retorno en la variable resultado
         if (resultado == 2) { // creamos sentencia if la cual dice si resultado es igual a 2 entonces

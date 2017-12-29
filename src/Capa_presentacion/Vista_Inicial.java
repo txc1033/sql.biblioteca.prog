@@ -3,11 +3,11 @@ package Capa_presentacion;
 
 import Adminitrador.Administrador;
 
-public class Inicio extends javax.swing.JFrame {
+public class Vista_Inicial extends javax.swing.JFrame {
 
     Administrador admin = new Administrador();
 
-    public Inicio() {
+    public Vista_Inicial() {
         this.setLocationRelativeTo(null);
         initComponents();
     }
@@ -96,12 +96,12 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_librosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_librosActionPerformed
-        new Libros().setVisible(true);
+        new Vista_Libros().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btn_librosActionPerformed
 
     private void btn_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clientesActionPerformed
-        new Clientes().setVisible(true);
+        new Vista_Clientes().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btn_clientesActionPerformed
 
@@ -123,7 +123,7 @@ public class Inicio extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new Inicio().setVisible(true);
+            new Vista_Inicial().setVisible(true);
         });
     }
 

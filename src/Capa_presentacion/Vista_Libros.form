@@ -170,6 +170,11 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtxt_id">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+        <Property name="focusable" type="boolean" value="false"/>
+        <Property name="requestFocusEnabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jtxt_nombre">
     </Component>
