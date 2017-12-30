@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import Adminitrador.Administrador;
 import biblioteca.Libro;
 import java.sql.SQLException;
+import javax.swing.UIManager;
 
 public class Vista_Libros extends javax.swing.JFrame {
 
@@ -16,6 +17,9 @@ public class Vista_Libros extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         initComponents();
         DatosTabla();
+                try { // try - catch para inicializar el metodo uimanager
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // metodo para asignar un tema para la app (visual)
+        }catch(Exception ex){} 
     }
 
     public void DatosTabla() {
@@ -71,6 +75,7 @@ public class Vista_Libros extends javax.swing.JFrame {
         ));
         jtable_libro.setFocusable(false);
         jtable_libro.setRequestFocusEnabled(false);
+        jtable_libro.getTableHeader().setReorderingAllowed(false);
         jtable_libro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtable_libroMouseClicked(evt);

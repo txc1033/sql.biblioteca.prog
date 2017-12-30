@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import Adminitrador.Administrador;
 import biblioteca.Persona;
 import java.sql.SQLException;
+import javax.swing.UIManager;
 
 public class Vista_Clientes extends javax.swing.JFrame {
 
@@ -16,6 +17,9 @@ public class Vista_Clientes extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         initComponents();
         DatosTabla();
+        try { // try - catch para inicializar el metodo uimanager
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // metodo para asignar un tema para la app (visual)
+        }catch(Exception ex){} 
     }
 
      //metodo para cargar los datos del metodo ListaC y mostrarlo en el jtable_clientes
@@ -132,6 +136,7 @@ public class Vista_Clientes extends javax.swing.JFrame {
         jtable_clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtable_clientes.setFocusable(false);
         jtable_clientes.setRequestFocusEnabled(false);
+        jtable_clientes.getTableHeader().setReorderingAllowed(false);
         jtable_clientes.setUpdateSelectionOnSort(false);
         jtable_clientes.setVerifyInputWhenFocusTarget(false);
         jtable_clientes.addMouseListener(new java.awt.event.MouseAdapter() {

@@ -2,6 +2,7 @@
 package Capa_presentacion;
 
 import Adminitrador.Administrador;
+import javax.swing.UIManager;
 
 public class Vista_Inicial extends javax.swing.JFrame {
 
@@ -10,6 +11,9 @@ public class Vista_Inicial extends javax.swing.JFrame {
     public Vista_Inicial() {
         this.setLocationRelativeTo(null);
         initComponents();
+                try { // try - catch para inicializar el metodo uimanager
+        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // metodo para asignar un tema para la app (visual)
+        }catch(Exception ex){} 
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
