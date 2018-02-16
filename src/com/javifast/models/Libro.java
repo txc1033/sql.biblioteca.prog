@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package biblioteca;
+package com.javifast.models;
 
 /**
  * id INT PRIMARY KEY AUTOINCREMENT NOT NULL,nombre VARCHAR NULL,autor VARCHAR  NULL
@@ -18,8 +18,13 @@ public class Libro {
         this.nombre = nombre;
         this.autor = autor;
     }
+    
     public Libro(int id) {
         this.id = id;
+    }
+    
+    public Libro(){
+        
     }
 
     public Libro(int id, String nombre, String autor) {

@@ -1,44 +1,58 @@
 /* Autor @Javifast */
-package Capa_presentacion;
+package com.javifast.vista;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Adminitrador.Administrador;
-import biblioteca.Libro;
+import com.javifast.controller.Administrador;
+import com.javifast.models.Libro;
+import com.javifast.service.BibliotecaServicio;
 import java.sql.SQLException;
 import javax.swing.UIManager;
 
 public class Vista_Libros extends javax.swing.JFrame {
 
     // Se inicializan las variables a utilizar
-    Administrador admin = new Administrador();
-    int id;
+    private Administrador admin = new Administrador();
+    private Libro libro = new Libro();
+    private final int opcion = 1;
+
     public Vista_Libros() {
         this.setLocationRelativeTo(null);
         initComponents();
-        DatosTabla();
-                try { // try - catch para inicializar el metodo uimanager
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // metodo para asignar un tema para la app (visual)
-        }catch(Exception ex){} 
+        try {
+            DatosTabla();
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception ex) {
+        }
     }
 
-    public void DatosTabla() {
+    public void DatosTabla() throws SQLException {
         DefaultTableModel model;
-        Administrador oper = new Administrador();
-        model = oper.listar_tabla("libros");
+        BibliotecaServicio biblioteca = new BibliotecaServicio();
+        model = biblioteca.listaTabla(opcion);
         jtable_libro.setModel(model);
     }
 
+    public Libro obtenerDatos(){
+        libro.setId(Integer.parseInt(jtxt_id.getText()));
+        libro.setNombre(jtxt_nombre.getText());
+        libro.setAutor(jtxt_autor.getText());
+        return libro;
+    }
+    
     public void Agregar() throws SQLException {
-        admin.AgregarConsultaL(new Libro(jtxt_nombre.getText(),jtxt_autor.getText()));
+        obtenerDatos();
+        admin.AgregarConsulta(libro);
     }
 
     public void Eliminar() throws SQLException {
-        admin.EliminarConsultaL(new Libro(id));
+        obtenerDatos();
+        admin.EliminarConsultaL(libro);
     }
 
     public void Modificar() throws SQLException {
-        admin.ModificarConsultaL(new Libro(Integer.parseInt(jtxt_id.getText()),jtxt_nombre.getText(),jtxt_autor.getText()));
+        obtenerDatos();
+        admin.ModificarConsultaL(libro);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -227,7 +241,7 @@ public class Vista_Libros extends javax.swing.JFrame {
             Agregar();
             DatosTabla();
         } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("Error en btnAgregar " + ex.getMessage());
         }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
@@ -256,7 +270,7 @@ public class Vista_Libros extends javax.swing.JFrame {
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         try {
-            DatosTabla(); //llamamos al metodo datostabla
+            DatosTabla();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

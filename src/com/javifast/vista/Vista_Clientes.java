@@ -1,52 +1,64 @@
 /* Autor @Javifast | @Txc1033 */
-package Capa_presentacion;
+package com.javifast.vista;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import Adminitrador.Administrador;
-import biblioteca.Persona;
+import com.javifast.controller.Administrador;
+import com.javifast.models.Cliente;
+import com.javifast.service.BibliotecaServicio;
 import java.sql.SQLException;
 import javax.swing.UIManager;
 
 public class Vista_Clientes extends javax.swing.JFrame {
 
-    String nombre, apellido, rut, edad;
-    Administrador admin = new Administrador();
+    private Administrador admin = new Administrador();
+    private Cliente cliente = new Cliente();
+    private final int opcion = 2;
 
     public Vista_Clientes() {
         this.setLocationRelativeTo(null);
         initComponents();
-        DatosTabla();
-        try { // try - catch para inicializar el metodo uimanager
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // metodo para asignar un tema para la app (visual)
-        }catch(Exception ex){} 
+        try {
+            DatosTabla();
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception ex) {
+        }
     }
 
-     //metodo para cargar los datos del metodo ListaC y mostrarlo en el jtable_clientes
-    public void DatosTabla() {
+    
+    public void DatosTabla() throws SQLException {
         DefaultTableModel model;
-        Administrador oper = new Administrador();
-        model = oper.listar_tabla("clientes");
+        BibliotecaServicio biblioteca = new BibliotecaServicio();
+        model = biblioteca.listaTabla(opcion);
         jtable_clientes.setModel(model);
     }
 
-    //metodo para agregar datos  y llamar al metodo AgregarConsultaC
+    public Cliente obtenerDatos() {
+        cliente.setId(Integer.parseInt(jtxt_id.getText()));
+        cliente.setNombre(jtxt_nombre.getText());
+        cliente.setApellido(jtxt_apellido.getText());
+        cliente.setRut(jtxt_rut.getText());
+        cliente.setEdad(Integer.parseInt(jtxt_edad.getText()));
+        return cliente;
+    }
+
     public void Agregar() throws SQLException {
-        admin.AgregarConsultaC(new Persona(jtxt_nombre.getText(),jtxt_apellido.getText(),
-                                 jtxt_rut.getText(),Integer.parseInt(jtxt_edad.getText())));
+        obtenerDatos();
+        admin.AgregarConsultaC(cliente);
         DatosTabla();
     }
 
     //metodo para eliminar datos y llamar al metodo EliminarConsultaC
     public void Eliminar() throws SQLException {
-        admin.EliminarConsultaC(new Persona(Integer.parseInt(jtxt_id.getText())));
+        obtenerDatos();
+        admin.EliminarConsultaC(cliente);
         DatosTabla();
     }
 
     //metodo para modificar datos y llamar al metodo ModificarConsultaC
     public void Modificar() throws SQLException {
-    admin.ModificarConsultaC(new Persona(Integer.parseInt(jtxt_id.getText()), jtxt_nombre.getText(),jtxt_apellido.getText(),
-                                 jtxt_rut.getText(),Integer.parseInt(jtxt_edad.getText())));
+        obtenerDatos();
+        admin.ModificarConsultaC(cliente);
         DatosTabla();
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -117,11 +129,6 @@ public class Vista_Clientes extends javax.swing.JFrame {
 
         jtxt_edad.setToolTipText("");
 
-        jtable_clientes = new javax.swing.JTable(){
-            public boolean isCelleditable(int rowIndex,int colIndex){
-                return false;
-            }
-        };
         jtable_clientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -252,22 +259,20 @@ public class Vista_Clientes extends javax.swing.JFrame {
     private void jtable_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_clientesMouseClicked
         this.jtable_clientes.getModel();
         int i = jtable_clientes.getSelectedRow();
-//condicion si no se selecciono ninguno
-        if (i == -1) {//condicion si no se selecciono ninguno
+        if (i == -1) {
             JOptionPane.showMessageDialog(this, "Seleccione");
-        } else {/* mostramos los datos en los jtxt
-     convertimos en string el resultado */
+        } else {
             jtxt_id.setText(String.valueOf(jtable_clientes.getValueAt(i, 0)));
             jtxt_nombre.setText(String.valueOf(jtable_clientes.getValueAt(i, 1)));
             jtxt_apellido.setText(String.valueOf(jtable_clientes.getValueAt(i, 2)));
             jtxt_rut.setText(String.valueOf(jtable_clientes.getValueAt(i, 3)));
             jtxt_edad.setText(String.valueOf(jtable_clientes.getValueAt(i, 4)));
         }
-        
+
     }//GEN-LAST:event_jtable_clientesMouseClicked
 
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-//llamamos al metodo agregar
+
         try {
             Agregar();
         } catch (Exception ex) {
@@ -278,7 +283,7 @@ public class Vista_Clientes extends javax.swing.JFrame {
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
 
         try {
-            Eliminar(); //llamamos al metodo eliminar
+            Eliminar();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -287,7 +292,7 @@ public class Vista_Clientes extends javax.swing.JFrame {
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
 
         try {
-            Modificar(); //llamamos al metodo modificar
+            Modificar();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
@@ -295,7 +300,7 @@ public class Vista_Clientes extends javax.swing.JFrame {
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         try {
-            DatosTabla(); //llamamos al metodo datostabla
+            DatosTabla();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

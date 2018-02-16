@@ -1,19 +1,23 @@
 /* Autor @Javifast | @Txc1033 */
-package Capa_presentacion;
+package com.javifast.vista;
 
-import Adminitrador.Administrador;
+import com.javifast.controller.Administrador;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 public class Vista_Inicial extends javax.swing.JFrame {
 
-    Administrador admin = new Administrador();
+    static Administrador admin = new Administrador();
 
     public Vista_Inicial() {
         this.setLocationRelativeTo(null);
         initComponents();
-                try { // try - catch para inicializar el metodo uimanager
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // metodo para asignar un tema para la app (visual)
-        }catch(Exception ex){} 
+        try { // try - catch para inicializar el metodo uimanager
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // metodo para asignar un tema para la app (visual)
+        } catch (Exception ex) {
+        }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -21,8 +25,6 @@ public class Vista_Inicial extends javax.swing.JFrame {
         jinicio = new javax.swing.JLabel();
         btn_libros = new javax.swing.JButton();
         btn_clientes = new javax.swing.JButton();
-        btn_db_libro = new javax.swing.JButton();
-        btn_db_clientes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -44,20 +46,6 @@ public class Vista_Inicial extends javax.swing.JFrame {
             }
         });
 
-        btn_db_libro.setText("Crear tabla libros");
-        btn_db_libro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_db_libroActionPerformed(evt);
-            }
-        });
-
-        btn_db_clientes.setText("Crear tabla clientes");
-        btn_db_clientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_db_clientesActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -73,12 +61,6 @@ public class Vista_Inicial extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addComponent(btn_clientes)))
                 .addContainerGap(77, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btn_db_libro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_db_clientes)
-                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,11 +71,7 @@ public class Vista_Inicial extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_libros)
                     .addComponent(btn_clientes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_db_libro)
-                    .addComponent(btn_db_clientes))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -109,32 +87,19 @@ public class Vista_Inicial extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btn_clientesActionPerformed
 
-    private void btn_db_libroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_db_libroActionPerformed
-        try {
-            admin.CrearL();
-        } catch (Exception ex) {
-          System.out.println(ex);
-        }
-    }//GEN-LAST:event_btn_db_libroActionPerformed
-
-    private void btn_db_clientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_db_clientesActionPerformed
-        try {
-            admin.CrearC();
-        } catch (Exception ex) {
-          System.out.println(ex);
-        }
-    }//GEN-LAST:event_btn_db_clientesActionPerformed
-
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             new Vista_Inicial().setVisible(true);
+            try {
+                admin.Crear();
+            } catch (SQLException ex) {
+                System.out.println("Error en CrearTabla " + ex.getMessage());
+            }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_clientes;
-    private javax.swing.JButton btn_db_clientes;
-    private javax.swing.JButton btn_db_libro;
     private javax.swing.JButton btn_libros;
     private javax.swing.JLabel jinicio;
     // End of variables declaration//GEN-END:variables

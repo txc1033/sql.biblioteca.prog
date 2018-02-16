@@ -1,5 +1,5 @@
 /* Autor @Javifast | @Txc1033 */
-package Adminitrador;
+package com.javifast.controller;
 
 import java.sql.*;  // importamos las clases del paquete sql
 import javax.swing.JOptionPane; // importamos la clase JOptionPane
