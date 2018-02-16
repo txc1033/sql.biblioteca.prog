@@ -7,6 +7,7 @@ import com.javifast.controller.Administrador;
 import com.javifast.models.Libro;
 import com.javifast.service.BibliotecaServicio;
 import java.sql.SQLException;
+import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 import javax.swing.UIManager;
 
 public class Vista_Libros extends javax.swing.JFrame {
@@ -21,6 +22,7 @@ public class Vista_Libros extends javax.swing.JFrame {
         initComponents();
         try {
             DatosTabla();
+            jtxt_id.setText(String.valueOf(jtable_libro.getRowCount()+1));
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ex) {
         }
@@ -34,27 +36,36 @@ public class Vista_Libros extends javax.swing.JFrame {
     }
 
     public Libro obtenerDatos(){
-        libro.setId(Integer.parseInt(jtxt_id.getText()));
+        libro.setId(Integer.parseInt(jtxt_id.getText())); 
         libro.setNombre(jtxt_nombre.getText());
         libro.setAutor(jtxt_autor.getText());
+        
         return libro;
     }
     
     public void Agregar() throws SQLException {
         obtenerDatos();
-        admin.AgregarConsulta(libro);
+        mensaje(admin.agregarLibro(libro),"Agregado");
     }
 
     public void Eliminar() throws SQLException {
         obtenerDatos();
-        admin.EliminarConsultaL(libro);
+        mensaje(admin.eliminarLibro(libro),"Eliminado");
     }
 
     public void Modificar() throws SQLException {
         obtenerDatos();
-        admin.ModificarConsultaL(libro);
+        mensaje(admin.modificarLibro(libro),"Modificado");
     }
 
+    public void mensaje(int resultado,String accion){
+        if (resultado == 2) {
+            JOptionPane.showMessageDialog(null, accion, "Sentencia SQL", PLAIN_MESSAGE, null);
+        }else{
+            JOptionPane.showMessageDialog(null, "Error", "Sentencia SQL", PLAIN_MESSAGE, null);
+        }
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -109,6 +120,12 @@ public class Vista_Libros extends javax.swing.JFrame {
         jtxt_id.setEditable(false);
         jtxt_id.setFocusable(false);
         jtxt_id.setRequestFocusEnabled(false);
+
+        jtxt_nombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxt_nombreActionPerformed(evt);
+            }
+        });
 
         btn_agregar.setText("AGREGAR");
         btn_agregar.addActionListener(new java.awt.event.ActionListener() {
@@ -275,6 +292,10 @@ public class Vista_Libros extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btn_actualizarActionPerformed
+
+    private void jtxt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_nombreActionPerformed
+        
+    }//GEN-LAST:event_jtxt_nombreActionPerformed
 
     public static void main(String args[]) {
         try {

@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/javie/Documents/NetBeansProjects/sql.biblioteca.prog/src/com/javifast/service/BibliotecaServicio.java</file>
-            <file>file:/C:/Users/javie/Documents/NetBeansProjects/sql.biblioteca.prog/src/com/javifast/repository/LibroDao.java</file>
-            <file>file:/C:/Users/javie/Documents/NetBeansProjects/sql.biblioteca.prog/src/com/javifast/controller/Administrador.java</file>
-            <file>file:/C:/Users/javie/Documents/NetBeansProjects/sql.biblioteca.prog/src/com/javifast/repository/LibroDaoImpl.java</file>
-            <file>file:/C:/Users/javie/Documents/NetBeansProjects/sql.biblioteca.prog/src/com/javifast/repository/ClienteDaoImpl.java</file>
-            <file>file:/C:/Users/javie/Documents/NetBeansProjects/sql.biblioteca.prog/src/com/javifast/vista/Vista_Libros.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

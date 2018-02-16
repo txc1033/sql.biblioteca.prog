@@ -91,7 +91,7 @@ public class Vista_Inicial extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new Vista_Inicial().setVisible(true);
             try {
-                admin.Crear();
+                admin.crearTablas();
             } catch (SQLException ex) {
                 System.out.println("Error en CrearTabla " + ex.getMessage());
             }

@@ -3,11 +3,7 @@ package com.javifast.controller;
 
 import com.javifast.models.Libro;
 import com.javifast.models.Cliente;
-import java.awt.HeadlessException;
 import java.sql.*;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.*;
-import javax.swing.table.DefaultTableModel;
 
 import com.javifast.repository.ClienteDaoImpl;
 import com.javifast.repository.LibroDaoImpl;
@@ -19,37 +15,37 @@ public class Administrador {
     private ClienteDaoImpl clienteImpl = new ClienteDaoImpl();
     private BibliotecaServicio biblioteca;
 
-    public void Crear() throws SQLException {
+    public void crearTablas() throws SQLException {
         biblioteca = new BibliotecaServicio();
         biblioteca.crearTabla();
     }
 
     /*-----METODOS QUE INTERACUAN CON LA TABLA LIBROS-------------*/
     
-    public void AgregarConsulta(Libro libro) throws SQLException {
-        libroImpl.agregarDato(libro);
+    public int agregarLibro(Libro libro) throws SQLException {
+       return libroImpl.agregarDato(libro);
     }
 
-    public void EliminarConsultaL(Libro libro) throws SQLException {
-        libroImpl.eliminarDato(libro);
+    public int modificarLibro(Libro libro) throws SQLException {
+       return libroImpl.modificarDato(libro);
     }
 
-    public void ModificarConsultaL(Libro libro) throws SQLException {
-        libroImpl.modificarDato(libro);
+    public int eliminarLibro(Libro libro) throws SQLException {
+       return libroImpl.eliminarDato(libro);
     }
 
     /*-------METODOS QUE INTERACUAN CON LA TABLA CLIENTES----------------------*/
     
-    public void AgregarConsultaC(Cliente cliente) throws SQLException {
-        clienteImpl.agregarDato(cliente);
+    public int agregarCliente(Cliente cliente) throws SQLException {
+        return clienteImpl.agregarDato(cliente);
     }
 
-    public void ModificarConsultaC(Cliente cliente) throws SQLException {
-        clienteImpl.modificarDato(cliente);
+    public int modificarCliente(Cliente cliente) throws SQLException {
+       return clienteImpl.modificarDato(cliente);
     }
 
-    public void EliminarConsultaC(Cliente cliente) throws SQLException {
-        clienteImpl.eliminarDato(cliente);
+    public int eliminarCliente(Cliente cliente) throws SQLException {
+        return clienteImpl.eliminarDato(cliente);
     }
 
 }

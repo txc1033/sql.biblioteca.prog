@@ -7,6 +7,7 @@ import com.javifast.controller.Administrador;
 import com.javifast.models.Cliente;
 import com.javifast.service.BibliotecaServicio;
 import java.sql.SQLException;
+import static javax.swing.JOptionPane.PLAIN_MESSAGE;
 import javax.swing.UIManager;
 
 public class Vista_Clientes extends javax.swing.JFrame {
@@ -20,6 +21,7 @@ public class Vista_Clientes extends javax.swing.JFrame {
         initComponents();
         try {
             DatosTabla();
+            jtxt_id.setText(String.valueOf(jtable_clientes.getRowCount()+1));
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ex) {
         }
@@ -44,23 +46,30 @@ public class Vista_Clientes extends javax.swing.JFrame {
 
     public void Agregar() throws SQLException {
         obtenerDatos();
-        admin.AgregarConsultaC(cliente);
+        mensaje(admin.agregarCliente(cliente),"Agregado");
         DatosTabla();
     }
 
-    //metodo para eliminar datos y llamar al metodo EliminarConsultaC
     public void Eliminar() throws SQLException {
         obtenerDatos();
-        admin.EliminarConsultaC(cliente);
+        mensaje(admin.eliminarCliente(cliente),"Eliminado");
         DatosTabla();
     }
 
-    //metodo para modificar datos y llamar al metodo ModificarConsultaC
     public void Modificar() throws SQLException {
         obtenerDatos();
-        admin.ModificarConsultaC(cliente);
+        mensaje(admin.modificarCliente(cliente),"Modificado");
         DatosTabla();
     }
+    
+        public void mensaje(int resultado,String accion){
+        if (resultado == 2) {
+            JOptionPane.showMessageDialog(null, accion, "Sentencia SQL", PLAIN_MESSAGE, null);
+        }else{
+            JOptionPane.showMessageDialog(null, "Error", "Sentencia SQL", PLAIN_MESSAGE, null);
+        }
+    }
+        
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
