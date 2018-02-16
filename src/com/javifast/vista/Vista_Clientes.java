@@ -21,13 +21,13 @@ public class Vista_Clientes extends javax.swing.JFrame {
         initComponents();
         try {
             DatosTabla();
-            jtxt_id.setText(String.valueOf(jtable_clientes.getRowCount()+1));
+            jtxt_id.setText(String.valueOf(jtable_clientes.getRowCount() + 1));
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception ex) {
+        } catch (Exception error) {
+            System.out.println("Error en Vista Cliente: " + error.getMessage());
         }
     }
 
-    
     public void DatosTabla() throws SQLException {
         DefaultTableModel model;
         BibliotecaServicio biblioteca = new BibliotecaServicio();
@@ -46,30 +46,30 @@ public class Vista_Clientes extends javax.swing.JFrame {
 
     public void Agregar() throws SQLException {
         obtenerDatos();
-        mensaje(admin.agregarCliente(cliente),"Agregado");
+        mensaje(admin.agregarCliente(cliente), "Agregado");
         DatosTabla();
     }
 
     public void Eliminar() throws SQLException {
         obtenerDatos();
-        mensaje(admin.eliminarCliente(cliente),"Eliminado");
+        mensaje(admin.eliminarCliente(cliente), "Eliminado");
         DatosTabla();
     }
 
     public void Modificar() throws SQLException {
         obtenerDatos();
-        mensaje(admin.modificarCliente(cliente),"Modificado");
+        mensaje(admin.modificarCliente(cliente), "Modificado");
         DatosTabla();
     }
-    
-        public void mensaje(int resultado,String accion){
+
+    public void mensaje(int resultado, String accion) {
         if (resultado == 2) {
             JOptionPane.showMessageDialog(null, accion, "Sentencia SQL", PLAIN_MESSAGE, null);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Error", "Sentencia SQL", PLAIN_MESSAGE, null);
         }
     }
-        
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -284,8 +284,8 @@ public class Vista_Clientes extends javax.swing.JFrame {
 
         try {
             Agregar();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception error) {
+            System.out.println("Error en Vista Cliente: " + error.getMessage());
         }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
@@ -293,8 +293,8 @@ public class Vista_Clientes extends javax.swing.JFrame {
 
         try {
             Eliminar();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception error) {
+            System.out.println("Error en Vista Cliente: " + error.getMessage());
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
@@ -302,16 +302,16 @@ public class Vista_Clientes extends javax.swing.JFrame {
 
         try {
             Modificar();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception error) {
+            System.out.println("Error en Vista Cliente: " + error.getMessage());
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         try {
             DatosTabla();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception error) {
+            System.out.println("Error en Vista Cliente: " + error.getMessage());
         }
     }//GEN-LAST:event_btn_actualizarActionPerformed
 

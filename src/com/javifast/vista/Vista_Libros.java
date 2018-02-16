@@ -12,7 +12,6 @@ import javax.swing.UIManager;
 
 public class Vista_Libros extends javax.swing.JFrame {
 
-    // Se inicializan las variables a utilizar
     private Administrador admin = new Administrador();
     private Libro libro = new Libro();
     private final int opcion = 1;
@@ -22,9 +21,10 @@ public class Vista_Libros extends javax.swing.JFrame {
         initComponents();
         try {
             DatosTabla();
-            jtxt_id.setText(String.valueOf(jtable_libro.getRowCount()+1));
+            jtxt_id.setText(String.valueOf(jtable_libro.getRowCount() + 1));
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception ex) {
+        } catch (Exception error) {
+            System.out.println("Error en Vista Libro: " + error.getMessage());
         }
     }
 
@@ -35,37 +35,33 @@ public class Vista_Libros extends javax.swing.JFrame {
         jtable_libro.setModel(model);
     }
 
-    public Libro obtenerDatos(){
-        libro.setId(Integer.parseInt(jtxt_id.getText())); 
+    public Libro obtenerDatos() {
+        libro.setId(Integer.parseInt(jtxt_id.getText()));
         libro.setNombre(jtxt_nombre.getText());
         libro.setAutor(jtxt_autor.getText());
-        
         return libro;
     }
-    
+
     public void Agregar() throws SQLException {
-        obtenerDatos();
-        mensaje(admin.agregarLibro(libro),"Agregado");
+        mensaje(admin.agregarLibro(obtenerDatos()), "Agregado");
     }
 
     public void Eliminar() throws SQLException {
-        obtenerDatos();
-        mensaje(admin.eliminarLibro(libro),"Eliminado");
+        mensaje(admin.eliminarLibro(obtenerDatos()), "Eliminado");
     }
 
     public void Modificar() throws SQLException {
-        obtenerDatos();
-        mensaje(admin.modificarLibro(libro),"Modificado");
+        mensaje(admin.modificarLibro(obtenerDatos()), "Modificado");
     }
 
-    public void mensaje(int resultado,String accion){
+    public void mensaje(int resultado, String accion) {
         if (resultado == 2) {
             JOptionPane.showMessageDialog(null, accion, "Sentencia SQL", PLAIN_MESSAGE, null);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Error", "Sentencia SQL", PLAIN_MESSAGE, null);
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -243,13 +239,13 @@ public class Vista_Libros extends javax.swing.JFrame {
 
     private void jtable_libroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtable_libroMouseClicked
         this.jtable_libro.getModel();
-        int i = jtable_libro.getSelectedRow();
-        if (i == -1) {
-            JOptionPane.showMessageDialog(this, "Seleccione");
+        int fila = jtable_libro.getSelectedRow();
+        if (fila == -1) {
+            System.out.println("Tabla no ha sido cargada!");
         } else {
-            jtxt_id.setText(String.valueOf(jtable_libro.getValueAt(i, 0)));
-            jtxt_nombre.setText(String.valueOf(jtable_libro.getValueAt(i, 1)));
-            jtxt_autor.setText(String.valueOf(jtable_libro.getValueAt(i, 2)));
+            jtxt_id.setText(String.valueOf(jtable_libro.getValueAt(fila, 0)));
+            jtxt_nombre.setText(String.valueOf(jtable_libro.getValueAt(fila, 1)));
+            jtxt_autor.setText(String.valueOf(jtable_libro.getValueAt(fila, 2)));
         }
     }//GEN-LAST:event_jtable_libroMouseClicked
 
@@ -257,8 +253,8 @@ public class Vista_Libros extends javax.swing.JFrame {
         try {
             Agregar();
             DatosTabla();
-        } catch (Exception ex) {
-            System.out.println("Error en btnAgregar " + ex.getMessage());
+        } catch (Exception error) {
+            System.out.println("Error en Vista Libro: " + error.getMessage());
         }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
@@ -266,8 +262,8 @@ public class Vista_Libros extends javax.swing.JFrame {
         try {
             Eliminar();
             DatosTabla();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception error) {
+            System.out.println("Error en Vista Libro: " + error.getMessage());
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
@@ -288,13 +284,13 @@ public class Vista_Libros extends javax.swing.JFrame {
     private void btn_actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarActionPerformed
         try {
             DatosTabla();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+        } catch (Exception error) {
+            System.out.println("Error en Vista Libro: " + error.getMessage());
         }
     }//GEN-LAST:event_btn_actualizarActionPerformed
 
     private void jtxt_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_nombreActionPerformed
-        
+
     }//GEN-LAST:event_jtxt_nombreActionPerformed
 
     public static void main(String args[]) {

@@ -3,20 +3,17 @@ package com.javifast.vista;
 
 import com.javifast.controller.Administrador;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 public class Vista_Inicial extends javax.swing.JFrame {
 
-    static Administrador admin = new Administrador();
-
     public Vista_Inicial() {
         this.setLocationRelativeTo(null);
         initComponents();
-        try { // try - catch para inicializar el metodo uimanager
+        try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel"); // metodo para asignar un tema para la app (visual)
-        } catch (Exception ex) {
+        } catch (Exception error) {
+            System.out.println("Error en Vista Inicial: "+error.getMessage());
         }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -91,9 +88,10 @@ public class Vista_Inicial extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new Vista_Inicial().setVisible(true);
             try {
+                Administrador admin = new Administrador();
                 admin.crearTablas();
-            } catch (SQLException ex) {
-                System.out.println("Error en CrearTabla " + ex.getMessage());
+            } catch (SQLException error) {
+                System.out.println("Error en Vista Inicial: " + error.getMessage());
             }
         });
     }

@@ -27,7 +27,7 @@ public class BibliotecaServicio {
                     + "`rut` varchar(12) NOT NULL,`edad` int(3) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `rut` (`rut`));";
             cn = Coneccion.Enlace(cn);s = cn.createStatement();s.execute(tablaLibro);s.execute(tablaCliente);s.close();cn.close();
         } catch (SQLException error) {
-            System.out.println("Error " + error.getMessage());
+            System.out.println("Error en CrearTabla: " + error.getMessage());
         }
     }
 
@@ -42,7 +42,7 @@ public class BibliotecaServicio {
                 retorno = 2;
             }
         } catch (HeadlessException | SQLException error) {
-            System.out.println("Error " + error.getMessage());
+            System.out.println("Error en Ejecutar Sentencia: " + error.getMessage());
         }
         sql = null;
         s.close();
@@ -50,10 +50,10 @@ public class BibliotecaServicio {
         return retorno;
     }
 
-    public DefaultTableModel listaTabla(int tabla) throws SQLException {
+    public DefaultTableModel listaTabla(int opcion) throws SQLException {
         try {
             String sql;
-            if (tabla == 1) {
+            if (opcion == 1) {
                 sql = "select * from libros WHERE id>0";
             } else {
                 sql = "select * from clientes WHERE id>0;";
@@ -71,7 +71,7 @@ public class BibliotecaServicio {
             }
             s.close();cn.close();
         } catch (HeadlessException | SQLException error) {
-            System.out.println("Error " + error.getMessage());
+            System.out.println("Error en Lista Tabla: " + error.getMessage());
         }
         return modelo;
     }
