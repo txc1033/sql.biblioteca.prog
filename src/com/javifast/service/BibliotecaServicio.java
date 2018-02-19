@@ -1,6 +1,5 @@
 package com.javifast.service;
 
-import com.javifast.controller.Coneccion;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,71 +8,89 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
+import com.javifast.controller.Connect;
+import com.javifast.models.Cliente;
+import com.javifast.models.Libro;
+import com.javifast.repository.ClienteDaoImpl;
+import com.javifast.repository.LibroDaoImpl;
+
 public class BibliotecaServicio {
 
-    DefaultTableModel modelo = new DefaultTableModel();
-    static Connection cn;
-    static Statement s;
-    static ResultSet rs;
-    int CanColumns;
-    ResultSetMetaData rsmd;
+    private static Connection conection;
+    private static Statement statement;
+    private static ResultSet resultSet;
+    private ResultSetMetaData resultMetaData;
+    private String sql;
 
-    public void crearTabla() {
-        try {
-            String tablaLibro, tablaCliente;
-            tablaLibro = "CREATE TABLE `libros` (`id` int(3) NOT NULL AUTO_INCREMENT,`nombre` varchar(60) NOT NULL,`autor` varchar(40) NOT NULL,"
-                    + "  UNIQUE KEY `id` (`id`));";
-            tablaCliente = "CREATE TABLE `clientes` (`id` int(3) NOT NULL AUTO_INCREMENT,`nombre` varchar(60) NOT NULL,`apellido` varchar(60) NOT NULL,"
-                    + "`rut` varchar(12) NOT NULL,`edad` int(3) NOT NULL,PRIMARY KEY (`id`),UNIQUE KEY `rut` (`rut`));";
-            cn = Coneccion.Enlace(cn);s = cn.createStatement();s.execute(tablaLibro);s.execute(tablaCliente);s.close();cn.close();
-        } catch (SQLException error) {
-            System.out.println("Error en CrearTabla: " + error.getMessage());
+    public void crearTabla() throws SQLException {
+        sql = "crear";
+        if (ejecutarSentenciaAnonima(sql, 1) + ejecutarSentenciaAnonima(sql, 2) == 4) {
+            System.out.println("Tablas Libros y Clientes creadas correctamente!");
         }
-    }
-
-    public int ejecutarSentencia(String sql) throws SQLException {
-        int retorno = 0;
-        try {
-            cn = Coneccion.Enlace(cn);
-            s = cn.createStatement();
-            if (true == s.execute(sql)) {
-                retorno = 1;
-            } else {
-                retorno = 2;
-            }
-        } catch (HeadlessException | SQLException error) {
-            System.out.println("Error en Ejecutar Sentencia: " + error.getMessage());
-        }
-        sql = null;
-        s.close();
-        cn.close();
-        return retorno;
     }
 
     public DefaultTableModel listaTabla(int opcion) throws SQLException {
+        int columnas;
+        sql = "seleccionar";
+        if (opcion == 1) {
+            columnas = ejecutarSentenciaAnonima(sql, opcion);
+        } else {
+            columnas = ejecutarSentenciaAnonima(sql, opcion);
+        }
+        DefaultTableModel model = llenarTabla(columnas);
+        return model;
+    }
+
+        public DefaultTableModel llenarTabla(int columnas) {
+        DefaultTableModel model = new DefaultTableModel();
         try {
-            String sql;
-            if (opcion == 1) {
-                sql = "select * from libros WHERE id>0";
-            } else {
-                sql = "select * from clientes WHERE id>0;";
+            for (int i = 1; i <= columnas; i++) {
+                model.addColumn(resultMetaData.getColumnLabel(i));
             }
-            cn = Coneccion.Enlace(cn);s = cn.createStatement();rs = s.executeQuery(sql);rsmd = rs.getMetaData();CanColumns = rsmd.getColumnCount();
-            for (int i = 1; i <= CanColumns; i++) {
-                modelo.addColumn(rsmd.getColumnLabel(i));
-            }
-            while (rs.next()) {
-                Object[] fila = new Object[CanColumns];
-                for (int i = 0; i < CanColumns; i++) {
-                    fila[i] = rs.getObject(i + 1);
+            while (resultSet.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = resultSet.getObject(i + 1);
                 }
-                modelo.addRow(fila);
+                model.addRow(fila);
             }
-            s.close();cn.close();
+            statement.close();
+            conection.close();
         } catch (HeadlessException | SQLException error) {
             System.out.println("Error en Lista Tabla: " + error.getMessage());
         }
-        return modelo;
+        return model;
+    }
+    
+    public int ejecutarSentencia(String sql) throws SQLException {
+        int resultado = 0;
+        try {
+            conection = Connect.Enlace(conection);
+            statement = conection.createStatement();
+            resultado = (true == statement.execute(sql)) ? 1 : 2;
+            if (sql.length() == 31 || sql.length() == 34) {
+                resultSet = statement.executeQuery(sql);
+                resultMetaData = resultSet.getMetaData();
+                return resultMetaData.getColumnCount();
+            }
+        } catch (HeadlessException | SQLException error) {
+            System.out.println("Error en Ejecutar Sentencia: " + error.getMessage()+" n°: "+ resultado);
+        }
+        sql = null;
+        statement.close();
+        conection.close();
+        return resultado;
     }
 
+    public int ejecutarSentenciaAnonima(String sql, int opcion) throws SQLException {
+        LibroDaoImpl libroImpl = new LibroDaoImpl();
+        ClienteDaoImpl clienteImpl = new ClienteDaoImpl();
+        Libro libro = new Libro("JavierMS");
+        Cliente cliente = new Cliente();
+        if (opcion == 1) {
+            return ejecutarSentencia(libroImpl.llamarSentencia(sql, libro));
+        } else {
+            return ejecutarSentencia(clienteImpl.llamarSentencia(sql, cliente));
+        }
+    }
 }

@@ -66,7 +66,8 @@ public class Vista_Clientes extends javax.swing.JFrame {
         if (resultado == 2) {
             JOptionPane.showMessageDialog(null, accion, "Sentencia SQL", PLAIN_MESSAGE, null);
         } else {
-            JOptionPane.showMessageDialog(null, "Error", "Sentencia SQL", PLAIN_MESSAGE, null);
+            JOptionPane.showMessageDialog(null, "Error en el comando "+accion, "Sentencia SQL",
+                                          PLAIN_MESSAGE, null);
         }
     }
 
@@ -285,7 +286,7 @@ public class Vista_Clientes extends javax.swing.JFrame {
         try {
             Agregar();
         } catch (Exception error) {
-            System.out.println("Error en Vista Cliente: " + error.getMessage());
+            mensaje(1,"agregar");
         }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
@@ -294,7 +295,7 @@ public class Vista_Clientes extends javax.swing.JFrame {
         try {
             Eliminar();
         } catch (Exception error) {
-            System.out.println("Error en Vista Cliente: " + error.getMessage());
+            mensaje(1,"eliminar");
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
@@ -303,7 +304,7 @@ public class Vista_Clientes extends javax.swing.JFrame {
         try {
             Modificar();
         } catch (Exception error) {
-            System.out.println("Error en Vista Cliente: " + error.getMessage());
+            mensaje(1,"modificar");
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
@@ -311,7 +312,7 @@ public class Vista_Clientes extends javax.swing.JFrame {
         try {
             DatosTabla();
         } catch (Exception error) {
-            System.out.println("Error en Vista Cliente: " + error.getMessage());
+            mensaje(1,"consultar");
         }
     }//GEN-LAST:event_btn_actualizarActionPerformed
 

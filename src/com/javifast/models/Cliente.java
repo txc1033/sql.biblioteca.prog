@@ -1,40 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.javifast.models;
 
-/**
- * CREATE TABLE clientes " + " (id INT PRIMARY KEY AUTOINCREMENT NOT NULL,nombre VARCHAR NULL,"
-                + "apellido VARCHAR NULL,rut VARCHAR UNIQUE NULL,edad  VARCHAR NULL);
- * @author javie
- */
 public class Cliente {
     private int id,edad;
     private String nombre,apellido,rut;
     
-    public Cliente(int id,String nombre, String apellido,String rut, int edad) {
-                this.id = id;
-                this.nombre = nombre;
-		this.apellido = apellido;
-		this.rut = rut;
-                this.edad = edad;
-                
-	}
-    public Cliente(String nombre, String apellido,String rut,int edad) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.rut = rut;
-		this.edad = edad;
-	}
-    public Cliente(int id) {
-		this.id = id;
-	}
-    
-    public Cliente(){
-        
-    }
+    public Cliente(){ }
 
     public int getId() {
         return id;

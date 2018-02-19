@@ -13,10 +13,9 @@ public class Administrador {
 
     private LibroDaoImpl libroImpl = new LibroDaoImpl();
     private ClienteDaoImpl clienteImpl = new ClienteDaoImpl();
-    private BibliotecaServicio biblioteca;
+    private BibliotecaServicio biblioteca = new BibliotecaServicio();
 
     public void crearTablas() throws SQLException {
-        biblioteca = new BibliotecaServicio();
         biblioteca.crearTabla();
     }
 
